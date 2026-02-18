@@ -2,7 +2,7 @@
 
 namespace OGE.Model
 {
-    public class Schoolchildren
+    public class Schoolchildren : EFModel
     {
         public string Firstname {  get; set; }
         public string Lastname { get; set; }
