@@ -12,7 +12,7 @@ using OGE.Data;
 namespace OGE.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260220201044_OGEDB")]
+    [Migration("20260220204034_OGEDB")]
     partial class OGEDB
     {
         /// <inheritdoc />
@@ -83,7 +83,7 @@ namespace OGE.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Schoolchildrens");
+                    b.ToTable("Schoolchildren");
                 });
 
             modelBuilder.Entity("OGE.Model.Subject", b =>

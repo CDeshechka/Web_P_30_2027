@@ -8,7 +8,7 @@ namespace OGE.Data
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
-        public DbSet<Schoolchildren> Schoolchildrens { get; set; }
+        public DbSet<Schoolchildren> Schoolchildren { get; set; }
         public DbSet<Subject> Subject { get; set; }
         public DbSet<Auditorium> Auditorium { get; set; }
     }

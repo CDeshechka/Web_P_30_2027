@@ -28,7 +28,7 @@ namespace OGE.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Schoolchildrens",
+                name: "Schoolchildren",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -42,7 +42,7 @@ namespace OGE.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Schoolchildrens", x => x.Id);
+                    table.PrimaryKey("PK_Schoolchildren", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -69,7 +69,7 @@ namespace OGE.Migrations
                 name: "Auditorium");
 
             migrationBuilder.DropTable(
-                name: "Schoolchildrens");
+                name: "Schoolchildren");
 
             migrationBuilder.DropTable(
                 name: "Subject");

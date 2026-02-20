@@ -80,7 +80,7 @@ namespace OGE.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Schoolchildrens");
+                    b.ToTable("Schoolchildren");
                 });
 
             modelBuilder.Entity("OGE.Model.Subject", b =>
