@@ -12,6 +12,22 @@ namespace OGE.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Auditorium",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Auditoriumnumber = table.Column<double>(type: "float", nullable: false),
+                    Auditoriumcapacity = table.Column<double>(type: "float", nullable: false),
+                    Auditoriumsubject = table.Column<double>(type: "float", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Auditorium", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Schoolchildrens",
                 columns: table => new
                 {
@@ -30,7 +46,7 @@ namespace OGE.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Subject1",
+                name: "Subject",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -42,23 +58,7 @@ namespace OGE.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Subject1", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Subject2",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Auditoriumnumber = table.Column<double>(type: "float", nullable: false),
-                    Auditoriumcapacity = table.Column<double>(type: "float", nullable: false),
-                    Auditoriumsubject = table.Column<double>(type: "float", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Subject2", x => x.Id);
+                    table.PrimaryKey("PK_Subject", x => x.Id);
                 });
         }
 
@@ -66,13 +66,13 @@ namespace OGE.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Auditorium");
+
+            migrationBuilder.DropTable(
                 name: "Schoolchildrens");
 
             migrationBuilder.DropTable(
-                name: "Subject1");
-
-            migrationBuilder.DropTable(
-                name: "Subject2");
+                name: "Subject");
         }
     }
 }
