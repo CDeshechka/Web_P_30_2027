@@ -16,7 +16,7 @@ namespace OGE.Pages.Schoolchildren
             _context = context;
         }
 
-        public IList<Schoolchildren> SchoolchildrenList { get; set; }
+        public IList<OGE.Model.Schoolchildren> SchoolchildrenList { get; set; }
 
         public async Task OnGetAsync()
         {

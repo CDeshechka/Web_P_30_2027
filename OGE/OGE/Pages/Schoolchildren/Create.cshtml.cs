@@ -16,7 +16,7 @@ namespace OGE.Pages.Schoolchildren
         }
 
         [BindProperty]
-        public Schoolchildren Schoolchild { get; set; }
+        public OGE.Model.Schoolchildren Schoolchild { get; set; }
 
         public IActionResult OnGet()
         {
