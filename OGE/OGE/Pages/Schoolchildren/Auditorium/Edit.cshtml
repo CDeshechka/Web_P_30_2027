@@ -1,0 +1,42 @@
+﻿@page
+@model OGE.Pages.Auditorium.EditModel
+
+<h2>Редактирование аудитории</h2>
+
+<form method="post">
+    <input type="hidden" asp-for="Auditorium.Id" />
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="Auditorium.Name" class="control-label"></label>
+        <input asp-for="Auditorium.Name" class="form-control" />
+        <span asp-validation-for="Auditorium.Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Auditorium.Auditoriumnumber" class="control-label"></label>
+        <input asp-for="Auditorium.Auditoriumnumber" class="form-control" />
+        <span asp-validation-for="Auditorium.Auditoriumnumber" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Auditorium.Auditoriumcapacity" class="control-label"></label>
+        <input asp-for="Auditorium.Auditoriumcapacity" class="form-control" />
+        <span asp-validation-for="Auditorium.Auditoriumcapacity" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Auditorium.Auditoriumsubject" class="control-label"></label>
+        <input asp-for="Auditorium.Auditoriumsubject" class="form-control" />
+        <span asp-validation-for="Auditorium.Auditoriumsubject" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Сохранить" class="btn btn-primary" />
+        <a asp-page="Index" class="btn btn-secondary">Отмена</a>
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

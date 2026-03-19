@@ -1,0 +1,27 @@
+﻿@page
+@model OGE.Pages.Auditorium.DeleteModel
+
+<h2>Удаление аудитории</h2>
+
+<h3>Вы уверены, что хотите удалить запись?</h3>
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Auditorium.Name)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Auditorium.Name)</dd>
+
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Auditorium.Auditoriumnumber)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Auditorium.Auditoriumnumber)</dd>
+
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Auditorium.Auditoriumcapacity)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Auditorium.Auditoriumcapacity)</dd>
+
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Auditorium.Auditoriumsubject)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Auditorium.Auditoriumsubject)</dd>
+    </dl>
+
+    <form method="post">
+        <input type="hidden" asp-for="Auditorium.Id" />
+        <input type="submit" value="Удалить" class="btn btn-danger" />
+        <a asp-page="Index" class="btn btn-secondary">Отмена</a>
+    </form>
+</div>

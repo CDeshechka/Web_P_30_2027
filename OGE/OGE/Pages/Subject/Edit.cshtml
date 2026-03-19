@@ -1,0 +1,42 @@
+﻿@page
+@model OGE.Pages.Subject.EditModel
+
+<h2>Редактирование предмета</h2>
+
+<form method="post">
+    <input type="hidden" asp-for="Subject.Id" />
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="Subject.Name" class="control-label"></label>
+        <input asp-for="Subject.Name" class="form-control" />
+        <span asp-validation-for="Subject.Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Subject.Assessmentfortheoge" class="control-label"></label>
+        <input asp-for="Subject.Assessmentfortheoge" class="form-control" />
+        <span asp-validation-for="Subject.Assessmentfortheoge" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Subject.Academicyearassessment" class="control-label"></label>
+        <input asp-for="Subject.Academicyearassessment" class="form-control" />
+        <span asp-validation-for="Subject.Academicyearassessment" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Subject.Finalassessment" class="control-label"></label>
+        <input asp-for="Subject.Finalassessment" class="form-control" />
+        <span asp-validation-for="Subject.Finalassessment" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Сохранить" class="btn btn-primary" />
+        <a asp-page="Index" class="btn btn-secondary">Отмена</a>
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

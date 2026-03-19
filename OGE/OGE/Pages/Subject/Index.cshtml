@@ -1,0 +1,35 @@
+﻿@page
+@model OGE.Pages.Subject.IndexModel
+
+<h2>Список предметов</h2>
+
+<p>
+    <a asp-page="Create">Добавить новый предмет</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Название</th>
+            <th>Оценка за ОГЭ</th>
+            <th>Оценка за учебный год</th>
+            <th>Итоговая оценка</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Subjects)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Assessmentfortheoge</td>
+                <td>@item.Academicyearassessment</td>
+                <td>@item.Finalassessment</td>
+                <td>
+                    <a asp-page="Edit" asp-route-id="@item.Id">Редактировать</a> |
+                    <a asp-page="Delete" asp-route-id="@item.Id">Удалить</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
