@@ -1,0 +1,21 @@
+﻿@page
+@model OGE.Pages.Schoolchildren.DeleteModel
+
+<h2>Удаление школьника</h2>
+
+<h3>Вы уверены, что хотите удалить запись?</h3>
+<div>
+    <dl>
+        <dt>@Html.DisplayNameFor(model => model.Schoolchild.Name)</dt>
+        <dd>@Html.DisplayFor(model => model.Schoolchild.Name)</dd>
+        <dt>@Html.DisplayNameFor(model => model.Schoolchild.Firstname)</dt>
+        <dd>@Html.DisplayFor(model => model.Schoolchild.Firstname)</dd>
+        <!-- остальные поля -->
+    </dl>
+
+    <form method="post">
+        <input type="hidden" asp-for="Schoolchild.Id" />
+        <input type="submit" value="Удалить" class="btn btn-danger" />
+        <a asp-page="Index" class="btn btn-secondary">Отмена</a>
+    </form>
+</div>
