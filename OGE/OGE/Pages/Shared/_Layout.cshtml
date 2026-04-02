@@ -8,6 +8,12 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/OGE.styles.css" asp-append-version="true" />
+    <!-- Плавающая кнопка темы -->
+    <div class="theme-fab">
+        <button id="theme-toggle" class="theme-toggle-btn" aria-label="Переключить тему">
+            🌓
+        </button>
+    </div>
 </head>
 <body>
     <header>
@@ -47,16 +53,11 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2026 - OGE - <a asp-area="" asp-page="/Privacy">Privacy</a>
-        </div>
-    </footer>
-
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
+    <script src="~/js/theme.js"></script>
 </body>
 </html>

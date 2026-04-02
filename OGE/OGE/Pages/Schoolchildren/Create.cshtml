@@ -6,33 +6,30 @@
 <form method="post">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
+    <!-- Поле Name полностью удалено -->
+
     <div class="form-group">
-        <label asp-for="Schoolchild.Name" class="control-label"></label>
-        <input asp-for="Schoolchild.Name" class="form-control" />
-        <span asp-validation-for="Schoolchild.Name" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Schoolchild.Firstname" class="control-label"></label>
+        <label asp-for="Schoolchild.Firstname" class="control-label">Имя</label>
         <input asp-for="Schoolchild.Firstname" class="form-control" />
         <span asp-validation-for="Schoolchild.Firstname" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="Schoolchild.Lastname" class="control-label"></label>
+        <label asp-for="Schoolchild.Lastname" class="control-label">Фамилия</label>
         <input asp-for="Schoolchild.Lastname" class="form-control" />
         <span asp-validation-for="Schoolchild.Lastname" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="Schoolchild.Age" class="control-label"></label>
+        <label asp-for="Schoolchild.Age" class="control-label">Возраст</label>
         <input asp-for="Schoolchild.Age" class="form-control" />
         <span asp-validation-for="Schoolchild.Age" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="Schoolchild.Email" class="control-label"></label>
+        <label asp-for="Schoolchild.Email" class="control-label">Email</label>
         <input asp-for="Schoolchild.Email" class="form-control" />
         <span asp-validation-for="Schoolchild.Email" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="Schoolchild.Dateofbirthday" class="control-label"></label>
+        <label asp-for="Schoolchild.Dateofbirthday" class="control-label">Дата рождения</label>
         <input asp-for="Schoolchild.Dateofbirthday" class="form-control" type="date" />
         <span asp-validation-for="Schoolchild.Dateofbirthday" class="text-danger"></span>
     </div>

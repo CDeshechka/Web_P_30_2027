@@ -29,3 +29,71 @@ body {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
 }
+
+:root {
+    --bg-color: #ffffff;
+    --text-color: #212529;
+    --card-bg: #f8f9fa;
+    --border-color: #dee2e6;
+}
+
+body.dark-mode {
+    --bg-color: #1a1a1a;
+    --text-color: #f8f9fa;
+    --card-bg: #2c2c2c;
+    --border-color: #444;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.navbar, .footer, .card {
+    background-color: var(--card-bg);
+    border-color: var(--border-color);
+}
+
+.table {
+    color: var(--text-color);
+}
+
+.theme-toggle {
+    cursor: pointer;
+    margin-left: 15px;
+}
+
+.theme-fab {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.theme-toggle-btn {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background-color: var(--card-bg, #007bff);
+    color: var(--text-color, white);
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s, background-color 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+    .theme-toggle-btn:hover {
+        transform: scale(1.1);
+        background-color: #0056b3;
+    }
+
+
+body.dark-mode .theme-toggle-btn {
+    background-color: #444;
+    color: #ffdd00;
+}
