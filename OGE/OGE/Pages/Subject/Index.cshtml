@@ -4,32 +4,25 @@
 <h2>Список предметов</h2>
 
 <p>
-    <a asp-page="Create">Добавить новый предмет</a>
+    <a asp-page="Create" class="btn btn-primary">Добавить новый предмет</a>
 </p>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Название</th>
-            <th>Оценка за ОГЭ</th>
-            <th>Оценка за учебный год</th>
-            <th>Итоговая оценка</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Subjects)
-        {
-            <tr>
-                <td>@item.Name</td>
-                <td>@item.Assessmentfortheoge</td>
-                <td>@item.Academicyearassessment</td>
-                <td>@item.Finalassessment</td>
-                <td>
-                    <a asp-page="Edit" asp-route-id="@item.Id">Редактировать</a> |
-                    <a asp-page="Delete" asp-route-id="@item.Id">Удалить</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div class="row">
+    @foreach (var item in Model.Subjects)
+    {
+        <div class="col-md-4 mb-3">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">@item.Name</h5>
+                    <p class="card-text">
+                        <strong>Оценка за ОГЭ:</strong> @item.Assessmentfortheoge<br />
+                        <strong>Оценка за уч. год:</strong> @item.Academicyearassessment<br />
+                        <strong>Итоговая оценка:</strong> @item.Finalassessment
+                    </p>
+                    <a asp-page="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary">Редактировать</a>
+                    <a asp-page="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Удалить</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

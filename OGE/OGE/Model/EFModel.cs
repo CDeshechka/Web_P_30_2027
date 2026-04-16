@@ -5,8 +5,7 @@ namespace OGE.Model
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Название обязательно")]
-        [Display(Name = "Название")]
+       [Display(Name = "Имя")]
         public string Name { get; set; }
     }
 }

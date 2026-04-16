@@ -16,7 +16,7 @@ namespace OGE.Pages.Schoolchildren
         }
 
         [BindProperty]
-        public OGE.Model.Schoolchildren Schoolchild { get; set; }
+        public OGE.Model.Schoolchildren Schoolchild { get; set; } = default!;
 
         public IActionResult OnGet()
         {
@@ -25,6 +25,12 @@ namespace OGE.Pages.Schoolchildren
 
         public async Task<IActionResult> OnPostAsync()
         {
+        
+            Schoolchild.Name = $"{Schoolchild.Lastname} {Schoolchild.Firstname}";
+
+           
+            ModelState.Remove("Schoolchild.Name");
+
             if (!ModelState.IsValid)
             {
                 return Page();
@@ -32,7 +38,6 @@ namespace OGE.Pages.Schoolchildren
 
             _context.Schoolchildren.Add(Schoolchild);
             await _context.SaveChangesAsync();
-
             return RedirectToPage("./Index");
         }
     }

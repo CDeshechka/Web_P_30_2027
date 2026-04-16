@@ -4,6 +4,7 @@ namespace OGE.Model
 {
     public class Subject : EFModel
     {
+
         [Required(ErrorMessage = "Оценка за ОГЭ обязательна")]
         [Range(2, 5, ErrorMessage = "Оценка должна быть от 2 до 5")]
         [Display(Name = "Оценка за ОГЭ")]

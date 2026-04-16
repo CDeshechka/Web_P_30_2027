@@ -4,32 +4,25 @@
 <h2>Список аудиторий</h2>
 
 <p>
-    <a asp-page="Create">Добавить новую аудиторию</a>
+    <a asp-page="Create" class="btn btn-primary">Добавить новую аудиторию</a>
 </p>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Название</th>
-            <th>Номер аудитории</th>
-            <th>Вместимость</th>
-            <th>Предмет (Наименование)</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Auditoriums)
-        {
-            <tr>
-                <td>@item.Name</td>
-                <td>@item.Auditoriumnumber</td>
-                <td>@item.Auditoriumcapacity</td>
-                <td>@item.Auditoriumsubject</td>
-                <td>
-                    <a asp-page="Edit" asp-route-id="@item.Id">Редактировать</a> |
-                    <a asp-page="Delete" asp-route-id="@item.Id">Удалить</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div class="row">
+    @foreach (var item in Model.Auditoriums)
+    {
+        <div class="col-md-4 mb-3">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">@item.Name</h5>
+                    <p class="card-text">
+                        <strong>Номер аудитории:</strong> @item.Auditoriumnumber<br />
+                        <strong>Вместимость:</strong> @item.Auditoriumcapacity<br />
+                        <strong>Предмет (код):</strong> @item.Auditoriumsubject
+                    </p>
+                    <a asp-page="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary">Редактировать</a>
+                    <a asp-page="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Удалить</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

@@ -13,9 +13,8 @@ namespace OGE.Model
         [Display(Name = "Вместимость")]
         public double Auditoriumcapacity { get; set; }
 
-        [Required(ErrorMessage = "Предмет (код) обязателен")]
-        [Range(1, 1000, ErrorMessage = "Код предмета должен быть положительным числом")]
-        [Display(Name = "Предмет (код)")]
-        public double Auditoriumsubject { get; set; }
+        [Required(ErrorMessage = "Название предмета обязательно")]
+        [Display(Name = "Предмет")]
+        public string Auditoriumsubject { get; set; }  
     }
 }

@@ -1,33 +1,33 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
 }
 
 .form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
+    color: var(--bs-secondary-color);
+    text-align: end;
 }
 
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
+    text-align: start;
 }
 
 :root {
@@ -35,6 +35,11 @@ body {
     --text-color: #212529;
     --card-bg: #f8f9fa;
     --border-color: #dee2e6;
+    --navbar-bg: #f8f9fa;
+    --footer-bg: #f8f9fa;
+    --input-bg: #ffffff;
+    --input-border: #ced4da;
+    --link-color: #007bff;
 }
 
 body.dark-mode {
@@ -42,6 +47,11 @@ body.dark-mode {
     --text-color: #f8f9fa;
     --card-bg: #2c2c2c;
     --border-color: #444;
+    --navbar-bg: #2c2c2c;
+    --footer-bg: #2c2c2c;
+    --input-bg: #333;
+    --input-border: #555;
+    --link-color: #66b0ff;
 }
 
 body {
@@ -50,18 +60,126 @@ body {
     transition: background-color 0.3s, color 0.3s;
 }
 
-.navbar, .footer, .card {
+.navbar {
+    background-color: var(--navbar-bg) !important;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.navbar-brand, .nav-link {
+    color: var(--text-color) !important;
+}
+
+    .nav-link:hover {
+        color: var(--link-color) !important;
+    }
+
+.footer {
+    background-color: var(--footer-bg);
+    color: var(--text-color);
+    border-top: 1px solid var(--border-color);
+}
+
+.card {
     background-color: var(--card-bg);
+    color: var(--text-color);
     border-color: var(--border-color);
+}
+
+.card-title {
+    color: var(--text-color);
+}
+
+.card-text {
+    color: var(--text-color);
 }
 
 .table {
     color: var(--text-color);
 }
 
-.theme-toggle {
-    cursor: pointer;
-    margin-left: 15px;
+    .table td, .table th {
+        border-color: var(--border-color);
+    }
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+body.dark-mode .table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.form-control {
+    background-color: var(--input-bg);
+    color: var(--text-color);
+    border-color: var(--input-border);
+}
+
+    .form-control:focus {
+        background-color: var(--input-bg);
+        color: var(--text-color);
+        border-color: var(--link-color);
+        box-shadow: 0 0 0 0.2rem rgba(102, 176, 255, 0.25);
+    }
+
+    .form-control::placeholder {
+        color: #888;
+    }
+
+a:not(.btn) {
+    color: var(--link-color);
+}
+
+    a:not(.btn):hover {
+        color: var(--link-color);
+        text-decoration: underline;
+    }
+
+body.dark-mode .btn-primary {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+body.dark-mode .btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+body.dark-mode .btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+body.dark-mode .btn-warning {
+    background-color: #ffc107;
+    border-color: #ffc107;
+    color: #212529;
+}
+
+body.dark-mode .btn-info {
+    background-color: #0dcaf0;
+    border-color: #0dcaf0;
+    color: #212529;
+}
+
+body.dark-mode .btn-light {
+    background-color: #f8f9fa;
+    border-color: #f8f9fa;
+    color: #212529;
+}
+
+body.dark-mode .btn-dark {
+    background-color: #212529;
+    border-color: #212529;
+    color: #fff;
+}
+
+.text-danger {
+    color: #dc3545;
+}
+
+body.dark-mode .text-danger {
+    color: #ff9999 !important;
 }
 
 .theme-fab {
@@ -75,8 +193,8 @@ body {
     width: 56px;
     height: 56px;
     border-radius: 50%;
-    background-color: var(--card-bg, #007bff);
-    color: var(--text-color, white);
+    background-color: var(--card-bg);
+    color: var(--text-color);
     border: none;
     font-size: 28px;
     cursor: pointer;
@@ -89,11 +207,16 @@ body {
 
     .theme-toggle-btn:hover {
         transform: scale(1.1);
-        background-color: #0056b3;
+        background-color: var(--link-color);
+        color: white;
     }
-
 
 body.dark-mode .theme-toggle-btn {
     background-color: #444;
     color: #ffdd00;
 }
+
+    body.dark-mode .theme-toggle-btn:hover {
+        background-color: #66b0ff;
+        color: #1a1a1a;
+    }
