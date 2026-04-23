@@ -1,0 +1,39 @@
+﻿@page
+@model OGE.Pages.Schoolchildren.IndexModel
+
+<h2>Список школьников</h2>
+
+<p>
+    <a asp-page="Create">Добавить нового</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Имя (Name)</th>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Возраст</th>
+            <th>Email</th>
+            <th>Дата рождения</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.SchoolchildrenList)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Firstname</td>
+                <td>@item.Lastname</td>
+                <td>@item.Age</td>
+                <td>@item.Email</td>
+                <td>@item.Dateofbirthday.ToShortDateString()</td>
+                <td>
+                    <a asp-page="Edit" asp-route-id="@item.Id">Редактировать</a> |
+                    <a asp-page="Delete" asp-route-id="@item.Id">Удалить</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
