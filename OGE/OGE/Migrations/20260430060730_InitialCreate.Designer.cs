@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OGE.Data;
 
@@ -11,9 +12,11 @@ using OGE.Data;
 namespace OGE.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260430060730_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -105,23 +108,9 @@ namespace OGE.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("SchoolchildrenId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("SchoolchildrenId");
-
                     b.ToTable("Subject");
-                });
-
-            modelBuilder.Entity("OGE.Model.Subject", b =>
-                {
-                    b.HasOne("OGE.Model.Schoolchildren", "Schoolchildren")
-                        .WithMany()
-                        .HasForeignKey("SchoolchildrenId");
-
-                    b.Navigation("Schoolchildren");
                 });
 #pragma warning restore 612, 618
         }

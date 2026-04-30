@@ -27,9 +27,18 @@
         <span asp-validation-for="Subject.Finalassessment" class="text-danger"></span>
     </div>
 
-    <div class="form-group">
+    <div class="form-group mt-3">
         <input type="submit" value="Сохранить" class="btn btn-primary" />
         <a asp-page="Index" class="btn btn-secondary">Отмена</a>
+    </div>
+
+    <div class="form-group mt-3">
+        <label asp-for="Subject.SchoolchildrenId" class="control-label">Школьник</label>
+        <select asp-for="Subject.SchoolchildrenId" class="form-control"
+                asp-items="@(new SelectList(Model.SchoolchildrenList, "Id", "Name"))">
+            <option value="">-- Выберите школьника --</option>
+        </select>
+        <span asp-validation-for="Subject.SchoolchildrenId" class="text-danger"></span>
     </div>
 </form>
 

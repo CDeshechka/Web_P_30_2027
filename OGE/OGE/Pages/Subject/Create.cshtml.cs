@@ -1,7 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using OGE.Data;
-using OGE.Model;
+using SubjectModel = OGE.Model.Subject;
+using SchoolchildrenModel = OGE.Model.Schoolchildren;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace OGE.Pages.Subject
@@ -16,17 +20,20 @@ namespace OGE.Pages.Subject
         }
 
         [BindProperty]
-        public OGE.Model.Subject Subject { get; set; } = default!;
+        public SubjectModel Subject { get; set; }
 
-        public IActionResult OnGet()
+        public List<SchoolchildrenModel> SchoolchildrenList { get; set; }
+
+        public void OnGet()
         {
-            return Page();
+            SchoolchildrenList = _context.Schoolchildren.ToList();
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
+                SchoolchildrenList = _context.Schoolchildren.ToList();
                 return Page();
             }
 

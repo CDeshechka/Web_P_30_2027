@@ -1,8 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using OGE.Data;
-using OGE.Model;
+using SubjectModel = OGE.Model.Subject;
+using SchoolchildrenModel = OGE.Model.Schoolchildren;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace OGE.Pages.Subject
@@ -17,7 +21,9 @@ namespace OGE.Pages.Subject
         }
 
         [BindProperty]
-        public OGE.Model.Subject Subject { get; set; } = default!;
+        public SubjectModel Subject { get; set; }
+
+        public List<SchoolchildrenModel> SchoolchildrenList { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -32,6 +38,8 @@ namespace OGE.Pages.Subject
             {
                 return NotFound();
             }
+
+            SchoolchildrenList = _context.Schoolchildren.ToList();
             return Page();
         }
 
@@ -39,6 +47,7 @@ namespace OGE.Pages.Subject
         {
             if (!ModelState.IsValid)
             {
+                SchoolchildrenList = _context.Schoolchildren.ToList();
                 return Page();
             }
 

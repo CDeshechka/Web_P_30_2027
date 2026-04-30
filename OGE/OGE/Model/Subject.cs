@@ -1,10 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using SchoolchildrenModel = OGE.Model.Schoolchildren;
 
 namespace OGE.Model
 {
     public class Subject : EFModel
     {
-
         [Required(ErrorMessage = "Оценка за ОГЭ обязательна")]
         [Range(2, 5, ErrorMessage = "Оценка должна быть от 2 до 5")]
         [Display(Name = "Оценка за ОГЭ")]
@@ -19,5 +19,9 @@ namespace OGE.Model
         [Range(2, 5, ErrorMessage = "Оценка должна быть от 2 до 5")]
         [Display(Name = "Итоговая оценка")]
         public double Finalassessment { get; set; }
+
+        [Display(Name = "Школьник")]
+        public int? SchoolchildrenId { get; set; }
+        public SchoolchildrenModel? Schoolchildren { get; set; }
     }
 }
