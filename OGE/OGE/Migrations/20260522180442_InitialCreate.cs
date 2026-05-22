@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace OGE.Migrations
 {
     /// <inheritdoc />
-    public partial class OGEDB : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -19,7 +19,7 @@ namespace OGE.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Auditoriumnumber = table.Column<double>(type: "float", nullable: false),
                     Auditoriumcapacity = table.Column<double>(type: "float", nullable: false),
-                    Auditoriumsubject = table.Column<double>(type: "float", nullable: false),
+                    Auditoriumsubject = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -54,12 +54,23 @@ namespace OGE.Migrations
                     Assessmentfortheoge = table.Column<double>(type: "float", nullable: false),
                     Academicyearassessment = table.Column<double>(type: "float", nullable: false),
                     Finalassessment = table.Column<double>(type: "float", nullable: false),
+                    SchoolchildrenId = table.Column<int>(type: "int", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Subject", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Subject_Schoolchildren_SchoolchildrenId",
+                        column: x => x.SchoolchildrenId,
+                        principalTable: "Schoolchildren",
+                        principalColumn: "Id");
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Subject_SchoolchildrenId",
+                table: "Subject",
+                column: "SchoolchildrenId");
         }
 
         /// <inheritdoc />
@@ -69,10 +80,10 @@ namespace OGE.Migrations
                 name: "Auditorium");
 
             migrationBuilder.DropTable(
-                name: "Schoolchildren");
+                name: "Subject");
 
             migrationBuilder.DropTable(
-                name: "Subject");
+                name: "Schoolchildren");
         }
     }
 }

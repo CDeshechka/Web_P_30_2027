@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using OGE.Model;
-using System.Collections.Generic;
+using SubjectModel = OGE.Model.Subject;
+using SchoolchildrenModel = OGE.Model.Schoolchildren;
 
 namespace OGE.Data
 {
@@ -8,18 +8,22 @@ namespace OGE.Data
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
-        public DbSet<Schoolchildren> Schoolchildren { get; set; }
-        public DbSet<Subject> Subject { get; set; }
-        public DbSet<Auditorium> Auditorium { get; set; }
+        public DbSet<SchoolchildrenModel> Schoolchildren { get; set; }
+        public DbSet<SubjectModel> Subject { get; set; }
+        public DbSet<OGE.Model.Auditorium> Auditorium { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Subject>()
+            
+            modelBuilder.Entity<SchoolchildrenModel>().Ignore(e => e.Name);
+
+            modelBuilder.Entity<SubjectModel>()
                 .HasOne(s => s.Schoolchildren)
                 .WithMany()
-                .HasForeignKey(s => s.SchoolchildrenId);
+                .HasForeignKey(s => s.SchoolchildrenId)
+                .OnDelete(DeleteBehavior.SetNull);
         }
     }
 }

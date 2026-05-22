@@ -220,3 +220,8 @@ body.dark-mode .theme-toggle-btn {
         background-color: #66b0ff;
         color: #1a1a1a;
     }
+select.form-control,
+select.form-control option {
+    color: #000 !important; 
+    background-color: #fff !important; 
+}

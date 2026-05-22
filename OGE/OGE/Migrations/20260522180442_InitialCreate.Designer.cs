@@ -12,8 +12,8 @@ using OGE.Data;
 namespace OGE.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260430062414_AddSchoolchildrenIdToSubject")]
-    partial class AddSchoolchildrenIdToSubject
+    [Migration("20260522180442_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -20,7 +20,9 @@ namespace OGE.Pages.Subject
 
         public async Task OnGetAsync()
         {
-            Subjects = await _context.Subject.ToListAsync();
+            Subjects = await _context.Subject
+                .Include(s => s.Schoolchildren)   
+                .ToListAsync();
         }
     }
 }

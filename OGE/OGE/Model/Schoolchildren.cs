@@ -1,10 +1,20 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Microsoft.Extensions.Diagnostics.HealthChecks;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace OGE.Model
 {
-    public class Schoolchildren : EFModel
+    public class Schoolchildren : EFModel, IValidatableObject
     {
+        // Скрываем унаследованное обязательное поле Name, чтобы оно не участвовало в валидации
+        [BindNever]
+        public new string? Name { get; set; }
+
+        // Вычисляемое отображаемое имя (Фамилия Имя) – не сохраняется в БД
+        [NotMapped]
+        public string FullName => $"{Lastname} {Firstname}";
+
         [Required(ErrorMessage = "Имя обязательно")]
         [Display(Name = "Имя")]
         public string Firstname { get; set; }
@@ -27,5 +37,21 @@ namespace OGE.Model
         [DataType(DataType.Date)]
         [Display(Name = "Дата рождения")]
         public DateTime Dateofbirthday { get; set; }
+
+        // Проверка соответствия возраста и даты рождения
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            var today = DateTime.Today;
+            int calculatedAge = today.Year - Dateofbirthday.Year;
+            if (Dateofbirthday.Date > today.AddYears(-calculatedAge))
+                calculatedAge--;
+
+            if (calculatedAge != Age)
+            {
+                yield return new ValidationResult(
+                    $"Возраст ({Age}) не соответствует дате рождения ({Dateofbirthday.ToShortDateString()}). Ожидаемый возраст: {calculatedAge}.",
+                    new[] { nameof(Age), nameof(Dateofbirthday) });
+            }
+        }
     }
 }

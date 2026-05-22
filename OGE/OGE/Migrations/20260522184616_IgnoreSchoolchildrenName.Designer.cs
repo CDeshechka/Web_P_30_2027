@@ -12,8 +12,8 @@ using OGE.Data;
 namespace OGE.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260430060619_RevertAuditoriumSubject")]
-    partial class RevertAuditoriumSubject
+    [Migration("20260522184616_IgnoreSchoolchildrenName")]
+    partial class IgnoreSchoolchildrenName
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -78,10 +78,6 @@ namespace OGE.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
                     b.ToTable("Schoolchildren");
@@ -108,9 +104,24 @@ namespace OGE.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("SchoolchildrenId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("SchoolchildrenId");
+
                     b.ToTable("Subject");
+                });
+
+            modelBuilder.Entity("OGE.Model.Subject", b =>
+                {
+                    b.HasOne("OGE.Model.Schoolchildren", "Schoolchildren")
+                        .WithMany()
+                        .HasForeignKey("SchoolchildrenId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("Schoolchildren");
                 });
 #pragma warning restore 612, 618
         }

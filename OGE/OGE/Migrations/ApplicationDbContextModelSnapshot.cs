@@ -75,10 +75,6 @@ namespace OGE.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
                     b.ToTable("Schoolchildren");
@@ -119,7 +115,8 @@ namespace OGE.Migrations
                 {
                     b.HasOne("OGE.Model.Schoolchildren", "Schoolchildren")
                         .WithMany()
-                        .HasForeignKey("SchoolchildrenId");
+                        .HasForeignKey("SchoolchildrenId")
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Schoolchildren");
                 });

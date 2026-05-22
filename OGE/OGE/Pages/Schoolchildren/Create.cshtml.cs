@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using OGE.Data;
-using OGE.Model;
+using SchoolchildrenModel = OGE.Model.Schoolchildren;  // ? псевдоним
+using System;
 using System.Threading.Tasks;
 
 namespace OGE.Pages.Schoolchildren
@@ -16,7 +17,7 @@ namespace OGE.Pages.Schoolchildren
         }
 
         [BindProperty]
-        public OGE.Model.Schoolchildren Schoolchild { get; set; } = default!;
+        public SchoolchildrenModel Schoolchild { get; set; }   // ? SchoolchildrenModel
 
         public IActionResult OnGet()
         {
@@ -25,11 +26,22 @@ namespace OGE.Pages.Schoolchildren
 
         public async Task<IActionResult> OnPostAsync()
         {
-        
-            Schoolchild.Name = $"{Schoolchild.Lastname} {Schoolchild.Firstname}";
+            // Проверка возраста и даты рождения
+            if (Schoolchild.Dateofbirthday != default)
+            {
+                var today = DateTime.Today;
+                int calculatedAge = today.Year - Schoolchild.Dateofbirthday.Year;
+                if (Schoolchild.Dateofbirthday.Date > today.AddYears(-calculatedAge))
+                    calculatedAge--;
 
-           
-            ModelState.Remove("Schoolchild.Name");
+                if (calculatedAge != Schoolchild.Age)
+                {
+                    ModelState.AddModelError("Schoolchild.Age",
+                        $"Возраст ({Schoolchild.Age}) не соответствует дате рождения ({Schoolchild.Dateofbirthday.ToShortDateString()}). Ожидаемый возраст: {calculatedAge}.");
+                    ModelState.AddModelError("Schoolchild.Dateofbirthday",
+                        $"Дата рождения не соответствует указанному возрасту ({Schoolchild.Age}).");
+                }
+            }
 
             if (!ModelState.IsValid)
             {
@@ -38,6 +50,7 @@ namespace OGE.Pages.Schoolchildren
 
             _context.Schoolchildren.Add(Schoolchild);
             await _context.SaveChangesAsync();
+
             return RedirectToPage("./Index");
         }
     }
