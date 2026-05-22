@@ -5,7 +5,7 @@ namespace OGE.Model
 {
     public class Subject : EFModel
     {
-        // Название предмета обязательно
+        
         [Required(ErrorMessage = "Название предмета обязательно")]
         [Display(Name = "Название")]
         public new string? Name { get; set; }

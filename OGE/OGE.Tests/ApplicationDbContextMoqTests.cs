@@ -11,7 +11,7 @@ namespace OGE.Tests
         [Fact]
         public async Task AddSchoolchild_SavesToDatabase()
         {
-            // Arrange
+            
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseInMemoryDatabase(databaseName: "TestDb_AddSchoolchild")
                 .Options;
@@ -27,12 +27,12 @@ namespace OGE.Tests
                     Dateofbirthday = new DateTime(2008, 1, 15)
                 };
 
-                // Act
+                
                 context.Schoolchildren.Add(student);
                 await context.SaveChangesAsync();
             }
 
-            // Assert – проверяем, что запись сохранилась
+            
             using (var context = new ApplicationDbContext(options))
             {
                 var savedStudent = await context.Schoolchildren.FirstOrDefaultAsync(s => s.Firstname == "Анна");

@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using OGE.Data;
-using SchoolchildrenModel = OGE.Model.Schoolchildren;   // псевдоним
+using SchoolchildrenModel = OGE.Model.Schoolchildren;   
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

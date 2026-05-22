@@ -41,7 +41,7 @@ namespace OGE.Hubs
             _context.ChatMessages.Add(chatMsg);
             await _context.SaveChangesAsync();
 
-            // Отправляем всем, включая отправителя, с Id сообщения
+           
             await Clients.All.SendAsync("ReceiveMessage", chatMsg.Id, displayName, avatar, role, message, chatMsg.Timestamp.ToString("HH:mm"));
         }
 

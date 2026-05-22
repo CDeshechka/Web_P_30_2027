@@ -7,11 +7,11 @@ namespace OGE.Model
 {
     public class Schoolchildren : EFModel, IValidatableObject
     {
-        // Скрываем унаследованное обязательное поле Name, чтобы оно не участвовало в валидации
+       
         [BindNever]
         public new string? Name { get; set; }
 
-        // Вычисляемое отображаемое имя (Фамилия Имя) – не сохраняется в БД
+       
         [NotMapped]
         public string FullName => $"{Lastname} {Firstname}";
 
@@ -38,7 +38,7 @@ namespace OGE.Model
         [Display(Name = "Дата рождения")]
         public DateTime Dateofbirthday { get; set; }
 
-        // Проверка соответствия возраста и даты рождения
+        
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             var today = DateTime.Today;

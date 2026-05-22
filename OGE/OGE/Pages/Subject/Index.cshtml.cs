@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using OGE.Data;
-using SubjectModel = OGE.Model.Subject;   // псевдоним
+using SubjectModel = OGE.Model.Subject;   
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
