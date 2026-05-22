@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using OGE.Data;
-using OGE.Model;
+using SchoolchildrenModel = OGE.Model.Schoolchildren;   // псевдоним
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -16,7 +16,7 @@ namespace OGE.Pages.Schoolchildren
             _context = context;
         }
 
-        public IList<OGE.Model.Schoolchildren> SchoolchildrenList { get; set; }
+        public IList<SchoolchildrenModel> SchoolchildrenList { get; set; }
 
         public async Task OnGetAsync()
         {

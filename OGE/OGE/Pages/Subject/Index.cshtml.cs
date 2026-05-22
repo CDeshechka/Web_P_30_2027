@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using OGE.Data;
-using OGE.Model;
+using SubjectModel = OGE.Model.Subject;   // псевдоним
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -16,12 +16,12 @@ namespace OGE.Pages.Subject
             _context = context;
         }
 
-        public IList<OGE.Model.Subject> Subjects { get; set; } = default!;
+        public IList<SubjectModel> Subjects { get; set; }
 
         public async Task OnGetAsync()
         {
             Subjects = await _context.Subject
-                .Include(s => s.Schoolchildren)   
+                .Include(s => s.Schoolchildren)
                 .ToListAsync();
         }
     }

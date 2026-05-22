@@ -1,11 +1,16 @@
 ﻿@page
 @model OGE.Pages.Subject.IndexModel
+@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
 
 <h2>Список предметов</h2>
 
-<p>
-    <a asp-page="Create" class="btn btn-primary">Добавить новый предмет</a>
-</p>
+@if ((await AuthorizationService.AuthorizeAsync(User, "Admin")).Succeeded)
+{
+    <p>
+        <a asp-page="Create" class="btn btn-primary">Добавить новый предмет</a>
+    </p>
+}
 
 <div class="row">
     @foreach (var item in Model.Subjects)
@@ -15,13 +20,16 @@
                 <div class="card-body">
                     <h5 class="card-title">@item.Name</h5>
                     <p class="card-text">
-                        <strong>Школьник:</strong> @(item.Schoolchildren?.Name ?? "Не выбран")<br />
+                        <strong>Школьник:</strong> @(item.Schoolchildren?.FullName ?? "Не выбран")<br />
                         <strong>Оценка за ОГЭ:</strong> @item.Assessmentfortheoge<br />
                         <strong>Оценка за уч. год:</strong> @item.Academicyearassessment<br />
                         <strong>Итоговая оценка:</strong> @item.Finalassessment
                     </p>
-                    <a asp-page="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary">Редактировать</a>
-                    <a asp-page="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Удалить</a>
+                    @if ((await AuthorizationService.AuthorizeAsync(User, "Admin")).Succeeded)
+                    {
+                        <a asp-page="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary">Редактировать</a>
+                        <a asp-page="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Удалить</a>
+                    }
                 </div>
             </div>
         </div>

@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using OGE.Data;
-using OGE.Model;
+using AuditoriumModel = OGE.Model.Auditorium;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -16,7 +16,7 @@ namespace OGE.Pages.Auditorium
             _context = context;
         }
 
-        public IList<OGE.Model.Auditorium> Auditoriums { get; set; } = default!;
+        public IList<AuditoriumModel> Auditoriums { get; set; }
 
         public async Task OnGetAsync()
         {

@@ -1,11 +1,16 @@
 ﻿@page
 @model OGE.Pages.Schoolchildren.IndexModel
+@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
 
 <h2>Список школьников</h2>
 
-<p>
-    <a asp-page="Create" class="btn btn-primary">Добавить нового</a>
-</p>
+@if ((await AuthorizationService.AuthorizeAsync(User, "Admin")).Succeeded)
+{
+    <p>
+        <a asp-page="Create" class="btn btn-primary">Добавить нового</a>
+    </p>
+}
 
 <div class="row">
     @foreach (var item in Model.SchoolchildrenList)
@@ -13,16 +18,17 @@
         <div class="col-md-4 mb-3">
             <div class="card h-100">
                 <div class="card-body">
-                    <h5 class="card-title">@($"{item.Lastname} {item.Firstname}")</h5>
+                    <h5 class="card-title">@item.Lastname @item.Firstname</h5>
                     <p class="card-text">
-                        <strong>Имя:</strong> @item.Firstname<br />
-                        <strong>Фамилия:</strong> @item.Lastname<br />
                         <strong>Возраст:</strong> @item.Age<br />
                         <strong>Email:</strong> @item.Email<br />
                         <strong>Дата рождения:</strong> @item.Dateofbirthday.ToShortDateString()
                     </p>
-                    <a asp-page="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary">Редактировать</a>
-                    <a asp-page="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Удалить</a>
+                    @if ((await AuthorizationService.AuthorizeAsync(User, "Admin")).Succeeded)
+                    {
+                        <a asp-page="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary">Редактировать</a>
+                        <a asp-page="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Удалить</a>
+                    }
                 </div>
             </div>
         </div>

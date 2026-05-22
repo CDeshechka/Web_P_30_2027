@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace OGE.Pages.Subject
 {
+    [Authorize(Roles = "Admin")]
     public class EditModel : PageModel
     {
         private readonly ApplicationDbContext _context;
@@ -27,17 +29,10 @@ namespace OGE.Pages.Subject
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
             Subject = await _context.Subject.FirstOrDefaultAsync(s => s.Id == id);
-
-            if (Subject == null)
-            {
-                return NotFound();
-            }
+            if (Subject == null) return NotFound();
 
             SchoolchildrenList = _context.Schoolchildren.ToList();
             return Page();
@@ -52,29 +47,18 @@ namespace OGE.Pages.Subject
             }
 
             _context.Attach(Subject).State = EntityState.Modified;
-
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!SubjectExists(Subject.Id))
-                {
+                if (!_context.Subject.Any(e => e.Id == Subject.Id))
                     return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                throw;
             }
 
             return RedirectToPage("./Index");
-        }
-
-        private bool SubjectExists(int id)
-        {
-            return _context.Subject.Any(e => e.Id == id);
         }
     }
 }

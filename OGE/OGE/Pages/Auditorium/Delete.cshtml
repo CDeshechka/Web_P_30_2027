@@ -1,22 +1,22 @@
 ﻿@page
 @model OGE.Pages.Auditorium.DeleteModel
+@{
+    ViewData["Title"] = "Удаление аудитории";
+}
 
-<h2>Удаление аудитории</h2>
+<h2>@ViewData["Title"]</h2>
 
-<h3>Вы уверены, что хотите удалить запись?</h3>
+<h3>Вы уверены, что хотите удалить эту аудиторию?</h3>
 <div>
-    <dl class="row">
-        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Auditorium.Name)</dt>
-        <dd class="col-sm-10">@Html.DisplayFor(model => model.Auditorium.Name)</dd>
-
-        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Auditorium.Auditoriumnumber)</dt>
-        <dd class="col-sm-10">@Html.DisplayFor(model => model.Auditorium.Auditoriumnumber)</dd>
-
-        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Auditorium.Auditoriumcapacity)</dt>
-        <dd class="col-sm-10">@Html.DisplayFor(model => model.Auditorium.Auditoriumcapacity)</dd>
-
-        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Auditorium.Auditoriumsubject)</dt>
-        <dd class="col-sm-10">@Html.DisplayFor(model => model.Auditorium.Auditoriumsubject)</dd>
+    <dl>
+        <dt>Название</dt>
+        <dd>@Model.Auditorium.Name</dd>
+        <dt>Номер</dt>
+        <dd>@Model.Auditorium.Auditoriumnumber</dd>
+        <dt>Вместимость</dt>
+        <dd>@Model.Auditorium.Auditoriumcapacity</dd>
+        <dt>Предмет</dt>
+        <dd>@Model.Auditorium.Auditoriumsubject</dd>
     </dl>
 
     <form method="post">

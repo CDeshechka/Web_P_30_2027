@@ -1,22 +1,22 @@
 ﻿@page
 @model OGE.Pages.Subject.DeleteModel
+@{
+    ViewData["Title"] = "Удаление предмета";
+}
 
-<h2>Удаление предмета</h2>
+<h2>@ViewData["Title"]</h2>
 
-<h3>Вы уверены, что хотите удалить запись?</h3>
+<h3>Вы уверены, что хотите удалить этот предмет?</h3>
 <div>
-    <dl class="row">
-        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Subject.Name)</dt>
-        <dd class="col-sm-10">@Html.DisplayFor(model => model.Subject.Name)</dd>
-
-        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Subject.Assessmentfortheoge)</dt>
-        <dd class="col-sm-10">@Html.DisplayFor(model => model.Subject.Assessmentfortheoge)</dd>
-
-        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Subject.Academicyearassessment)</dt>
-        <dd class="col-sm-10">@Html.DisplayFor(model => model.Subject.Academicyearassessment)</dd>
-
-        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Subject.Finalassessment)</dt>
-        <dd class="col-sm-10">@Html.DisplayFor(model => model.Subject.Finalassessment)</dd>
+    <dl>
+        <dt>Название</dt>
+        <dd>@Model.Subject.Name</dd>
+        <dt>Оценка за ОГЭ</dt>
+        <dd>@Model.Subject.Assessmentfortheoge</dd>
+        <dt>Годовая оценка</dt>
+        <dd>@Model.Subject.Academicyearassessment</dd>
+        <dt>Итоговая оценка</dt>
+        <dd>@Model.Subject.Finalassessment</dd>
     </dl>
 
     <form method="post">

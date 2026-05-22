@@ -1,47 +1,33 @@
 ﻿@page
 @model OGE.Pages.Schoolchildren.CreateModel
-@if (ViewData.ModelState.ErrorCount > 0)
-{
-    <div class="alert alert-danger">
-        <ul>
-            @foreach (var key in ViewData.ModelState.Keys)
-            {
-                foreach (var error in ViewData.ModelState[key].Errors)
-                {
-                    <li>@error.ErrorMessage</li>
-                }
-            }
-        </ul>
-    </div>
-}
+
 <h2>Добавление школьника</h2>
 
 <form method="post">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-  
     <div class="form-group">
-        <label asp-for="Schoolchild.Firstname" class="control-label">Имя</label>
+        <label asp-for="Schoolchild.Firstname" class="control-label"></label>
         <input asp-for="Schoolchild.Firstname" class="form-control" />
         <span asp-validation-for="Schoolchild.Firstname" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="Schoolchild.Lastname" class="control-label">Фамилия</label>
+        <label asp-for="Schoolchild.Lastname" class="control-label"></label>
         <input asp-for="Schoolchild.Lastname" class="form-control" />
         <span asp-validation-for="Schoolchild.Lastname" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="Schoolchild.Age" class="control-label">Возраст</label>
+        <label asp-for="Schoolchild.Age" class="control-label"></label>
         <input asp-for="Schoolchild.Age" class="form-control" />
         <span asp-validation-for="Schoolchild.Age" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="Schoolchild.Email" class="control-label">Email</label>
+        <label asp-for="Schoolchild.Email" class="control-label"></label>
         <input asp-for="Schoolchild.Email" class="form-control" />
         <span asp-validation-for="Schoolchild.Email" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="Schoolchild.Dateofbirthday" class="control-label">Дата рождения</label>
+        <label asp-for="Schoolchild.Dateofbirthday" class="control-label"></label>
         <input asp-for="Schoolchild.Dateofbirthday" class="form-control" type="date" />
         <span asp-validation-for="Schoolchild.Dateofbirthday" class="text-danger"></span>
     </div>

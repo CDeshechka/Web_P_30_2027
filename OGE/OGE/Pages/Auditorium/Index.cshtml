@@ -1,11 +1,16 @@
 ﻿@page
 @model OGE.Pages.Auditorium.IndexModel
+@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
 
 <h2>Список аудиторий</h2>
 
-<p>
-    <a asp-page="Create" class="btn btn-primary">Добавить новую аудиторию</a>
-</p>
+@if ((await AuthorizationService.AuthorizeAsync(User, "Admin")).Succeeded)
+{
+    <p>
+        <a asp-page="Create" class="btn btn-primary">Добавить аудиторию</a>
+    </p>
+}
 
 <div class="row">
     @foreach (var item in Model.Auditoriums)
@@ -15,12 +20,15 @@
                 <div class="card-body">
                     <h5 class="card-title">@item.Name</h5>
                     <p class="card-text">
-                        <strong>Номер аудитории:</strong> @item.Auditoriumnumber<br />
+                        <strong>Номер:</strong> @item.Auditoriumnumber<br />
                         <strong>Вместимость:</strong> @item.Auditoriumcapacity<br />
-                        <strong>Предмет (код):</strong> @item.Auditoriumsubject
+                        <strong>Предмет:</strong> @item.Auditoriumsubject
                     </p>
-                    <a asp-page="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary">Редактировать</a>
-                    <a asp-page="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Удалить</a>
+                    @if ((await AuthorizationService.AuthorizeAsync(User, "Admin")).Succeeded)
+                    {
+                        <a asp-page="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary">Редактировать</a>
+                        <a asp-page="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Удалить</a>
+                    }
                 </div>
             </div>
         </div>
