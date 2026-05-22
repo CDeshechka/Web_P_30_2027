@@ -19,6 +19,8 @@ html {
 
 body {
     margin-bottom: 60px;
+    background-color: var(--bs-body-bg);
+    color: var(--bs-body-color);
 }
 
 .form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
@@ -30,198 +32,49 @@ body {
     text-align: start;
 }
 
-:root {
-    --bg-color: #ffffff;
-    --text-color: #212529;
-    --card-bg: #f8f9fa;
-    --border-color: #dee2e6;
-    --navbar-bg: #f8f9fa;
-    --footer-bg: #f8f9fa;
-    --input-bg: #ffffff;
-    --input-border: #ced4da;
-    --link-color: #007bff;
+.navbar-nav .nav-link {
+    color: var(--bs-nav-link-color);
 }
 
-body.dark-mode {
-    --bg-color: #1a1a1a;
-    --text-color: #f8f9fa;
-    --card-bg: #2c2c2c;
-    --border-color: #444;
-    --navbar-bg: #2c2c2c;
-    --footer-bg: #2c2c2c;
-    --input-bg: #333;
-    --input-border: #555;
-    --link-color: #66b0ff;
-}
-
-body {
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    transition: background-color 0.3s, color 0.3s;
-}
-
-.navbar {
-    background-color: var(--navbar-bg) !important;
-    border-bottom: 1px solid var(--border-color);
-}
-
-.navbar-brand, .nav-link {
-    color: var(--text-color) !important;
-}
-
-    .nav-link:hover {
-        color: var(--link-color) !important;
+    .navbar-nav .nav-link:hover {
+        color: var(--bs-nav-link-hover-color);
     }
 
-.footer {
-    background-color: var(--footer-bg);
-    color: var(--text-color);
-    border-top: 1px solid var(--border-color);
+.navbar .btn-link {
+    color: var(--bs-nav-link-color);
+    text-decoration: none;
 }
+
+    .navbar .btn-link:hover {
+        color: var(--bs-nav-link-hover-color);
+    }
 
 .card {
-    background-color: var(--card-bg);
-    color: var(--text-color);
-    border-color: var(--border-color);
-}
-
-.card-title {
-    color: var(--text-color);
-}
-
-.card-text {
-    color: var(--text-color);
+    background-color: var(--bs-card-bg);
+    color: var(--bs-card-color);
 }
 
 .table {
-    color: var(--text-color);
+    --bs-table-bg: var(--bs-body-bg);
+    color: var(--bs-body-color);
 }
 
-    .table td, .table th {
-        border-color: var(--border-color);
-    }
-
-.table-striped tbody tr:nth-of-type(odd) {
-    background-color: rgba(255, 255, 255, 0.05);
+.btn-link {
+    color: var(--bs-link-color);
 }
 
-body.dark-mode .table-striped tbody tr:nth-of-type(odd) {
-    background-color: rgba(0, 0, 0, 0.3);
+#messagesList {
+    background-color: var(--bs-body-bg);
+    color: var(--bs-body-color);
 }
 
 .form-control {
-    background-color: var(--input-bg);
-    color: var(--text-color);
-    border-color: var(--input-border);
+    background-color: var(--bs-body-bg);
+    color: var(--bs-body-color);
+    border-color: var(--bs-border-color);
 }
 
     .form-control:focus {
-        background-color: var(--input-bg);
-        color: var(--text-color);
-        border-color: var(--link-color);
-        box-shadow: 0 0 0 0.2rem rgba(102, 176, 255, 0.25);
+        background-color: var(--bs-body-bg);
+        color: var(--bs-body-color);
     }
-
-    .form-control::placeholder {
-        color: #888;
-    }
-
-a:not(.btn) {
-    color: var(--link-color);
-}
-
-    a:not(.btn):hover {
-        color: var(--link-color);
-        text-decoration: underline;
-    }
-
-body.dark-mode .btn-primary {
-    background-color: #0d6efd;
-    border-color: #0d6efd;
-}
-
-body.dark-mode .btn-secondary {
-    background-color: #6c757d;
-    border-color: #6c757d;
-}
-
-body.dark-mode .btn-danger {
-    background-color: #dc3545;
-    border-color: #dc3545;
-}
-
-body.dark-mode .btn-warning {
-    background-color: #ffc107;
-    border-color: #ffc107;
-    color: #212529;
-}
-
-body.dark-mode .btn-info {
-    background-color: #0dcaf0;
-    border-color: #0dcaf0;
-    color: #212529;
-}
-
-body.dark-mode .btn-light {
-    background-color: #f8f9fa;
-    border-color: #f8f9fa;
-    color: #212529;
-}
-
-body.dark-mode .btn-dark {
-    background-color: #212529;
-    border-color: #212529;
-    color: #fff;
-}
-
-.text-danger {
-    color: #dc3545;
-}
-
-body.dark-mode .text-danger {
-    color: #ff9999 !important;
-}
-
-.theme-fab {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 1000;
-}
-
-.theme-toggle-btn {
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    background-color: var(--card-bg);
-    color: var(--text-color);
-    border: none;
-    font-size: 28px;
-    cursor: pointer;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: transform 0.2s, background-color 0.2s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-    .theme-toggle-btn:hover {
-        transform: scale(1.1);
-        background-color: var(--link-color);
-        color: white;
-    }
-
-body.dark-mode .theme-toggle-btn {
-    background-color: #444;
-    color: #ffdd00;
-}
-
-    body.dark-mode .theme-toggle-btn:hover {
-        background-color: #66b0ff;
-        color: #1a1a1a;
-    }
-select.form-control,
-select.form-control option {
-    color: #000 !important; 
-    background-color: #fff !important; 
-}

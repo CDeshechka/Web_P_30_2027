@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using OGE.Model;
 
-// Псевдонимы
 using AuditoriumModel = OGE.Model.Auditorium;
 using SubjectModel = OGE.Model.Subject;
 using SchoolchildrenModel = OGE.Model.Schoolchildren;
@@ -17,6 +16,7 @@ namespace OGE.Data
         public DbSet<SchoolchildrenModel> Schoolchildren { get; set; }
         public DbSet<SubjectModel> Subject { get; set; }
         public DbSet<AuditoriumModel> Auditorium { get; set; }
+        public DbSet<ChatMessage> ChatMessages { get; set; }   
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -2,15 +2,17 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using OGE.Data;
 using OGE.Model;
+using OGE.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRazorPages();
+builder.Services.AddSignalR();   
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("OGEDB")));
 
-// Identity без стандартного UI
+
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 {
     options.SignIn.RequireConfirmedAccount = false;
@@ -23,7 +25,6 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 .AddEntityFrameworkStores<ApplicationDbContext>()
 .AddDefaultTokenProviders();
 
-// Настройка путей для аутентификации
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.AccessDeniedPath = "/Account/AccessDenied";
@@ -32,7 +33,7 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 builder.Services.AddAuthorization(options =>
 {
-    options.FallbackPolicy = options.DefaultPolicy; // все страницы требуют входа
+    options.FallbackPolicy = options.DefaultPolicy;
     options.AddPolicy("Admin", policy => policy.RequireRole("Admin"));
 });
 
@@ -50,8 +51,10 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();
+app.MapHub<UpdateHub>("/updateHub");   
+app.MapHub<ChatHub>("/chatHub");       
 
-// Гарантированное создание администратора при каждом запуске
+
 using (var scope = app.Services.CreateScope())
 {
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
@@ -63,7 +66,7 @@ using (var scope = app.Services.CreateScope())
     var admin = await userManager.FindByEmailAsync("admin@oge.com");
     if (admin != null)
     {
-        await userManager.DeleteAsync(admin); // удаляем старого
+        await userManager.DeleteAsync(admin); 
     }
 
     var newAdmin = new ApplicationUser

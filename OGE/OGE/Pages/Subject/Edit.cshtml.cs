@@ -2,8 +2,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using OGE.Data;
+using OGE.Hubs;
 using SubjectModel = OGE.Model.Subject;
 using SchoolchildrenModel = OGE.Model.Schoolchildren;
 using System.Collections.Generic;
@@ -16,10 +18,12 @@ namespace OGE.Pages.Subject
     public class EditModel : PageModel
     {
         private readonly ApplicationDbContext _context;
+        private readonly IHubContext<UpdateHub> _hubContext;
 
-        public EditModel(ApplicationDbContext context)
+        public EditModel(ApplicationDbContext context, IHubContext<UpdateHub> hubContext)
         {
             _context = context;
+            _hubContext = hubContext;
         }
 
         [BindProperty]
@@ -30,7 +34,6 @@ namespace OGE.Pages.Subject
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null) return NotFound();
-
             Subject = await _context.Subject.FirstOrDefaultAsync(s => s.Id == id);
             if (Subject == null) return NotFound();
 
@@ -50,6 +53,7 @@ namespace OGE.Pages.Subject
             try
             {
                 await _context.SaveChangesAsync();
+                await _hubContext.Clients.All.SendAsync("ReceiveUpdate", "Subject");
             }
             catch (DbUpdateConcurrencyException)
             {

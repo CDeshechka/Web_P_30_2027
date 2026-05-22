@@ -1,0 +1,98 @@
+﻿@page
+@model OGE.Pages.Chat.IndexModel
+@using Microsoft.AspNetCore.Identity
+@using OGE.Model
+@inject UserManager<ApplicationUser> UserManager
+@{
+    ViewData["Title"] = "Общий чат";
+    Layout = "_Layout";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="row">
+    <div class="col-12">
+        <div id="messagesList" class="border p-3 mb-3" style="height: 400px; overflow-y: scroll;">
+            
+        </div>
+        <form id="messageForm">
+            <div class="input-group">
+                <input type="text" id="messageInput" class="form-control" placeholder="Введите сообщение..." autocomplete="off" />
+                <button type="submit" class="btn btn-primary">Отправить</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        
+        const isAdmin = @Html.Raw(Model.IsAdmin ? "true" : "false");
+
+        function addMessage(messageId, userName, avatarBase64, role, text, time) {
+            const msgDiv = document.createElement("div");
+            msgDiv.id = "msg-" + messageId;
+            let avatarHtml = "";
+            if (avatarBase64) {
+                avatarHtml = `<img src="data:image/png;base64,${avatarBase64}" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 5px;" />`;
+            }
+            msgDiv.innerHTML = `
+                <div class="mb-2">
+                    ${avatarHtml}
+                    <strong>${userName}</strong>
+                    ${role ? `<span class="badge bg-danger">${role}</span>` : ""}
+                    <small class="text-muted">${time}</small>
+                    ${isAdmin ? `<button class="btn btn-sm btn-outline-danger float-end" onclick="deleteMessage(${messageId})" title="Удалить">✕</button>` : ""}
+                    <p class="mb-0">${text}</p>
+                </div>`;
+            document.getElementById("messagesList").appendChild(msgDiv);
+            document.getElementById("messagesList").scrollTop = document.getElementById("messagesList").scrollHeight;
+        }
+
+        
+        const historyMessages = @Html.Raw(Model.MessagesJson);
+        historyMessages.forEach(function(msg) {
+            addMessage(msg.id, msg.userName, msg.avatarBase64, msg.role, msg.text, msg.time);
+        });
+
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/chatHub")
+            .build();
+
+        connection.on("ReceiveMessage", function (messageId, userName, avatarBase64, role, message, time) {
+            addMessage(messageId, userName, avatarBase64, role, message, time);
+        });
+
+        connection.on("ReceiveDelete", function (messageId) {
+            const element = document.getElementById("msg-" + messageId);
+            if (element) {
+                element.remove();
+            }
+        });
+
+        document.getElementById("messageForm").addEventListener("submit", async function (e) {
+            e.preventDefault();
+            const input = document.getElementById("messageInput");
+            const message = input.value;
+            if (message.trim() === "") return;
+            try {
+                await connection.invoke("SendMessage", message);
+                input.value = "";
+            } catch (err) {
+                console.error(err.toString());
+            }
+        });
+
+        
+        async function deleteMessage(messageId) {
+            if (!confirm('Удалить это сообщение?')) return;
+            try {
+                await connection.invoke("DeleteMessage", messageId);
+            } catch (err) {
+                console.error(err.toString());
+            }
+        }
+
+        connection.start().catch(err => console.error(err.toString()));
+    </script>
+}

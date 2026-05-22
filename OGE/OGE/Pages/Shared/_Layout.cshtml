@@ -4,10 +4,11 @@
 @inject UserManager<ApplicationUser> UserManager
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" /> <!-- важно для Chrome -->
     <title>@ViewData["Title"] - OGE</title>
     <script type="importmap"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
@@ -16,7 +17,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm bg-body border-bottom box-shadow mb-3">
             <div class="container">
                 <a class="navbar-brand" asp-page="/Index">OGE</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
@@ -26,25 +27,28 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-page="/Index">Главная</a>
+                            <a class="nav-link" asp-page="/Index">Главная</a>
                         </li>
                         @if (SignInManager.IsSignedIn(User))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-page="/Schoolchildren/Index">Школьники</a>
+                                <a class="nav-link" asp-page="/Schoolchildren/Index">Школьники</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-page="/Subject/Index">Предметы</a>
+                                <a class="nav-link" asp-page="/Subject/Index">Предметы</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-page="/Auditorium/Index">Аудитории</a>
+                                <a class="nav-link" asp-page="/Auditorium/Index">Аудитории</a>
                             </li>
                             @if (User.IsInRole("Admin"))
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-page="/Admin/Users/Index">Пользователи</a>
+                                    <a class="nav-link" asp-page="/Admin/Users/Index">Пользователи</a>
                                 </li>
                             }
+                            <li class="nav-item">
+                                <a class="nav-link" asp-page="/Chat/Index">Чат</a>
+                            </li>
                         }
                     </ul>
                     <ul class="navbar-nav">
@@ -54,7 +58,7 @@
                             var avatar = user?.Avatar;
                             var displayName = user?.DisplayName ?? User.Identity?.Name;
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-page="/Profile/Index" title="Профиль">
+                                <a class="nav-link" asp-page="/Profile/Index" title="Профиль">
                                     @if (avatar != null)
                                     {
                                         <img src="data:image/png;base64,@Convert.ToBase64String(avatar)"
@@ -65,10 +69,17 @@
                             </li>
                             <li class="nav-item">
                                 <form class="form-inline" asp-page="/Account/Logout" method="post">
-                                    <button type="submit" class="btn btn-link nav-link text-dark">Выйти</button>
+                                    <button type="submit" class="btn btn-link nav-link">Выйти</button>
                                 </form>
                             </li>
                         }
+                        <!-- Кнопка темы -->
+                        <li class="nav-item ms-2">
+                            <button type="button" id="themeToggle" class="btn btn-sm btn-outline-secondary rounded-circle"
+                                    style="width: 36px; height: 36px; padding: 0;" title="Переключить тему">
+                                <span id="themeIcon">🌙</span>
+                            </button>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -89,6 +100,9 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <!-- SignalR -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using OGE.Data;
+using OGE.Hubs;
 using SchoolchildrenModel = OGE.Model.Schoolchildren;
 using System.Threading.Tasks;
 
@@ -12,10 +14,12 @@ namespace OGE.Pages.Schoolchildren
     public class DeleteModel : PageModel
     {
         private readonly ApplicationDbContext _context;
+        private readonly IHubContext<UpdateHub> _hubContext;
 
-        public DeleteModel(ApplicationDbContext context)
+        public DeleteModel(ApplicationDbContext context, IHubContext<UpdateHub> hubContext)
         {
             _context = context;
+            _hubContext = hubContext;
         }
 
         [BindProperty]
@@ -37,6 +41,7 @@ namespace OGE.Pages.Schoolchildren
             {
                 _context.Schoolchildren.Remove(Schoolchild);
                 await _context.SaveChangesAsync();
+                await _hubContext.Clients.All.SendAsync("ReceiveUpdate", "Schoolchildren");
             }
             return RedirectToPage("./Index");
         }
