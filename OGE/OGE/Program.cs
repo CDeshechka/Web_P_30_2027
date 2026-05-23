@@ -7,12 +7,12 @@ using OGE.Hubs;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRazorPages();
-builder.Services.AddSignalR();   
+builder.Services.AddSignalR();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("OGEDB")));
 
-
+// Identity без стандартного UI
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 {
     options.SignIn.RequireConfirmedAccount = false;
@@ -51,8 +51,8 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();
-app.MapHub<UpdateHub>("/updateHub");   
-app.MapHub<ChatHub>("/chatHub");       
+app.MapHub<UpdateHub>("/updateHub");
+app.MapHub<ChatHub>("/chatHub");
 
 
 using (var scope = app.Services.CreateScope())
@@ -66,7 +66,7 @@ using (var scope = app.Services.CreateScope())
     var admin = await userManager.FindByEmailAsync("admin@oge.com");
     if (admin != null)
     {
-        await userManager.DeleteAsync(admin); 
+        await userManager.DeleteAsync(admin);
     }
 
     var newAdmin = new ApplicationUser
