@@ -1,0 +1,30 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Профиль";
+    Layout = "_Layout";
+}
+<h2>@ViewData["Title"]</h2>
+
+@if (Model.CurrentUser?.Avatar != null)
+{
+    <img src="data:image/png;base64,@Convert.ToBase64String(Model.CurrentUser.Avatar)"
+         class="img-thumbnail" style="max-width: 150px;" />
+}
+else
+{
+    <p>Нет аватара</p>
+}
+
+<form method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="displayName">Имя</label>
+        <input type="text" id="displayName" name="displayName" class="form-control"
+               value="@Model.CurrentUser?.DisplayName" />
+    </div>
+    <div class="form-group">
+        <label for="avatarFile">Аватар</label>
+        <input type="file" id="avatarFile" name="avatarFile" class="form-control" accept="image/*" />
+    </div>
+    <button type="submit" class="btn btn-primary">Сохранить</button>
+</form>

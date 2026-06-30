@@ -1,0 +1,52 @@
+﻿@page
+@model OGE.Pages.Auditorium.IndexModel
+@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
+
+<h2>Список аудиторий</h2>
+
+@if ((await AuthorizationService.AuthorizeAsync(User, "Admin")).Succeeded)
+{
+    <p>
+        <a asp-page="Create" class="btn btn-primary">Добавить аудиторию</a>
+    </p>
+}
+
+<div class="row">
+    @foreach (var item in Model.Auditoriums)
+    {
+        <div class="col-md-4 mb-3">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">@item.Name</h5>
+                    <p class="card-text">
+                        <strong>Номер:</strong> @item.Auditoriumnumber<br />
+                        <strong>Вместимость:</strong> @item.Auditoriumcapacity<br />
+                        <strong>Предмет:</strong> @item.Auditoriumsubject
+                    </p>
+                    @if ((await AuthorizationService.AuthorizeAsync(User, "Admin")).Succeeded)
+                    {
+                        <a asp-page="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary">Редактировать</a>
+                        <a asp-page="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Удалить</a>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/updateHub")
+            .build();
+
+        connection.on("ReceiveUpdate", function (entityType) {
+            if (entityType === "Auditorium") {
+                location.reload();
+            }
+        });
+
+        connection.start().catch(err => console.error(err.toString()));
+    </script>
+}

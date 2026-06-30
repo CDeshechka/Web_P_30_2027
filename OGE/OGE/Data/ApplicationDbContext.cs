@@ -1,15 +1,34 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using OGE.Model;
-using System.Collections.Generic;
+
+using AuditoriumModel = OGE.Model.Auditorium;
+using SubjectModel = OGE.Model.Subject;
+using SchoolchildrenModel = OGE.Model.Schoolchildren;
 
 namespace OGE.Data
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+            : base(options) { }
 
-        public DbSet<Schoolchildren> Schoolchildren { get; set; }
-        public DbSet<Subject> Subject { get; set; }
-        public DbSet<Auditorium> Auditorium { get; set; }
+        public DbSet<SchoolchildrenModel> Schoolchildren { get; set; }
+        public DbSet<SubjectModel> Subject { get; set; }
+        public DbSet<AuditoriumModel> Auditorium { get; set; }
+        public DbSet<ChatMessage> ChatMessages { get; set; }   
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<SchoolchildrenModel>().Ignore(e => e.Name);
+
+            modelBuilder.Entity<SubjectModel>()
+                .HasOne(s => s.Schoolchildren)
+                .WithMany()
+                .HasForeignKey(s => s.SchoolchildrenId)
+                .OnDelete(DeleteBehavior.SetNull);
+        }
     }
 }

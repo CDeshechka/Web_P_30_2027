@@ -1,0 +1,52 @@
+﻿@page
+@model OGE.Pages.Subject.EditModel
+@{
+    ViewData["Title"] = "Редактирование предмета";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form method="post" autocomplete="off">
+    <input type="hidden" asp-for="Subject.Id" />
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="Subject.Name" class="control-label">Название</label>
+        <input asp-for="Subject.Name" class="form-control" />
+        <span asp-validation-for="Subject.Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Subject.Assessmentfortheoge" class="control-label">Оценка за ОГЭ</label>
+        <input asp-for="Subject.Assessmentfortheoge" class="form-control" />
+        <span asp-validation-for="Subject.Assessmentfortheoge" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Subject.Academicyearassessment" class="control-label">Оценка за учебный год</label>
+        <input asp-for="Subject.Academicyearassessment" class="form-control" />
+        <span asp-validation-for="Subject.Academicyearassessment" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Subject.Finalassessment" class="control-label">Итоговая оценка</label>
+        <input asp-for="Subject.Finalassessment" class="form-control" />
+        <span asp-validation-for="Subject.Finalassessment" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Subject.SchoolchildrenId" class="control-label">Школьник</label>
+        <select asp-for="Subject.SchoolchildrenId" class="form-control"
+                asp-items="@(new SelectList(Model.SchoolchildrenList, "Id", "FullName"))">
+            <option value="">-- Выберите школьника --</option>
+        </select>
+        <span asp-validation-for="Subject.SchoolchildrenId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mt-3">
+        <input type="submit" value="Сохранить" class="btn btn-primary" />
+        <a asp-page="Index" class="btn btn-secondary">Отмена</a>
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

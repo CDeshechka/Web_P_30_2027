@@ -1,0 +1,27 @@
+﻿@page
+@model OGE.Pages.Subject.DeleteModel
+@{
+    ViewData["Title"] = "Удаление предмета";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<h3>Вы уверены, что хотите удалить этот предмет?</h3>
+<div>
+    <dl>
+        <dt>Название</dt>
+        <dd>@Model.Subject.Name</dd>
+        <dt>Оценка за ОГЭ</dt>
+        <dd>@Model.Subject.Assessmentfortheoge</dd>
+        <dt>Годовая оценка</dt>
+        <dd>@Model.Subject.Academicyearassessment</dd>
+        <dt>Итоговая оценка</dt>
+        <dd>@Model.Subject.Finalassessment</dd>
+    </dl>
+
+    <form method="post">
+        <input type="hidden" asp-for="Subject.Id" />
+        <input type="submit" value="Удалить" class="btn btn-danger" />
+        <a asp-page="Index" class="btn btn-secondary">Отмена</a>
+    </form>
+</div>

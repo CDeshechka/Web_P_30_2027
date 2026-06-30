@@ -1,9 +1,12 @@
-﻿namespace OGE.Model
+﻿using System.ComponentModel.DataAnnotations;
+namespace OGE.Model
 {
     public class EFModel
     {
-            public int Id { get; set; }
-            public string Name { get; set; }
+        public int Id { get; set; }
+
+       [Display(Name = "Имя")]
+        public string Name { get; set; }
     }
 }
 
