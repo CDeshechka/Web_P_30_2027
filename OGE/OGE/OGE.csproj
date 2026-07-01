@@ -4,7 +4,21 @@
     <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <EnableDefaultCompileItems>true</EnableDefaultCompileItems>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Model\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Model\EFModel.cs" />
+    <Compile Include="Model\ApplicationUser.cs" />
+    <Compile Include="Model\Auditorium.cs" />
+    <Compile Include="Model\ChatMessage.cs" />
+    <Compile Include="Model\Schoolchildren.cs" />
+    <Compile Include="Model\Subject.cs" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.0" />
